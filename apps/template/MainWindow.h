@@ -33,6 +33,7 @@
 #ifndef __MainWindow_h
 #define __MainWindow_h
 
+#include "graphics/GLWindow.h"
 #include "graphics/GLRenderWindow3.h"
 
 
@@ -40,28 +41,35 @@
 //
 // MainWindow: template main window class
 // ==========
-class MainWindow final: public cg::GLRenderWindow3
+class MainWindow final: public cg::GLWindow
 {
 public:
   MainWindow(int width, int height);
 
 private:
-  using Base = cg::GLRenderWindow3;
+  using Base = cg::GLWindow;
+  
 
   // Attribute examples
-  cg::Color _lineColor;
+  cg::GLSL::Program _program;
+  GLuint _vao{};
+  GLuint _buffers[3];
+  cg::mat4f _transf{1.0f};
+  cg::vec3f _rotation{0.0f};
+  /*cg::Color _lineColor;
   cg::Color _meshColor;
   float _radius;
   float _speed;
   bool _animate{true};
-  bool _showGround{true};
+  bool _showGround{true};*/
 
   // Overridden method examples
   void initialize() override;
-  void update() override;
-  void renderScene() override;
-  bool keyInputEvent(int, int, int) override;
+  void update() override;//faz animacao
+  void render() override;
+  //bool keyInputEvent(int, int, int) override;
   void gui() override;
+  void terminate() override;
 
 }; // MainWindow
 
